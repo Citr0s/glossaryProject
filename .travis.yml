@@ -1,3 +1,5 @@
 language: csharp
 solution: backend.sln
 dotnet: 1.0.0-preview2-003121
+dist: trusty
+sudo: required
