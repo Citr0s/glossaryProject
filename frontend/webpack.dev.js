@@ -3,14 +3,14 @@
 // Plugin / Base Require
 const webpack                   = require('webpack');
 const path                      = require('path');
-const helpers                   = require('./config/helpers')
+const helpers                   = require('./config/helpers');
 const HtmlWebpackPlugin         = require('html-webpack-plugin');
 const ExtractTextPlugin         = require('extract-text-webpack-plugin');
 
 // Webpack Variables
 const srcPath                   = path.join(__dirname, './src');
 const srcApp                    = path.join(__dirname, './src/main.ts');
-const srcPollyfill              = path.join(__dirname, './src/polyfills.ts')
+const srcPollyfill              = path.join(__dirname, './src/polyfills.ts');
 const srcVendor                 = path.join(__dirname, './src/vendor.ts');
 const distPath                  = path.join(__dirname, './dist');
 
@@ -33,36 +33,35 @@ module.exports = {
     filename: '[name].bundle.js',
     sourceMapFilename: '[name].map',
     chunkFilename: '[id].chunk.js',
-    publicPath: '/',
+    publicPath: '/'
     },
 
     // MODULES
     module: {
-
-    rules: [
-        {
-        //HTML
-        test: /\.html$/,
-        exclude: /node_modules/,
-        use: 'html-loader'
-        },
-        {
-        // CSS
-        test: /\.css$/,
-        exclude: helpers.root('src', 'app'),
-        use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' })
-        },
-        {
-        // TS
-        test: /\.(ts)$/,
-        loaders: ['awesome-typescript-loader', 'angular2-template-loader']
-        },
-        {
-        // IMAGES
-        test: /\.(png|jpg)$/,
-        use: 'url-loader?limit=100000&name=./imgs/[hash].[ext]'
-        }
-    ]
+        rules: [
+            {
+                //HTML
+                test: /\.html$/,
+                exclude: /node_modules/,
+                use: 'html-loader'
+            },
+            {
+                // CSS
+                test: /\.css$/,
+                exclude: helpers.root('src', 'app'),
+                use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' })
+            },
+            {
+                // TS
+                test: /\.(ts)$/,
+                loaders: ['awesome-typescript-loader', 'angular2-template-loader']
+            },
+            {
+                // IMAGES
+                test: /\.(png|jpg)$/,
+                use: 'url-loader?limit=100000&name=./imgs/[hash].[ext]'
+            }
+        ]
     },
 
     // RESOLVE
@@ -76,7 +75,7 @@ module.exports = {
 
     // performance
     performance: {
-    hints: "warning",
+        hints: "warning"
     },
 
     // the environment in which the bundle should run
@@ -104,7 +103,7 @@ module.exports = {
         filename: 'index.html',
         template: srcPath + '/index.html',
         inject: 'body'
-    }),
+    })
 
     ],
 
@@ -115,16 +114,16 @@ module.exports = {
     compress: false,
     inline: true,
     hot: true,
-    stats: {
-        assets: true,
-        children: false,
-        chunks: false,
-        hash: false,
-        modules: false,
-        publicPath: false,
-        timings: true,
-        version: false,
-        warnings: true
-    }
+        stats: {
+            assets: true,
+            children: false,
+            chunks: false,
+            hash: false,
+            modules: false,
+            publicPath: false,
+            timings: true,
+            version: false,
+            warnings: true
+        }
     }
 };
