@@ -9,7 +9,8 @@
   "scripts": {
     "fe-prod": "NODE_ENV='prod' webpack-dev-server -p --profile",
     "fe-test": "NODE_ENV='test' karma start karma.conf.js",
-    "fe-dev": "NODE_ENV='dev' webpack-dev-server -d --hot --inline --color"
+    "fe-dev": "NODE_ENV='dev' webpack-dev-server -d --hot --inline --color",
+    "fe-build": "NODE_ENV='dev' webpack"
   },
   "dependencies": {
     "@angular/common": "~2.4.7",
