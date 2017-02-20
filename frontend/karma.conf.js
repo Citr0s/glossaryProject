@@ -1,42 +1,38 @@
+var webpackConfig = require('./webpack.dev.js');
+
 module.exports = function(config) {
     config.set({
-
         basePath: '.',
-
         frameworks: ['jasmine'],
-
         files: [
-            // paths to support debugging with source maps in dev tools
             {
                 pattern: 'src/app/*.spec.ts', 
-                included: false, watched: false
+                included: false,
+                watched: false
             }
         ],
-
-        // proxied base paths
         proxies: {
             // required for component assests fetched by Angular's compiler
             '/src/': 'src/app/'
         },
-
+        preprocessors: {
+            '**/*.spec.ts': ['webpack']
+        },
+        webpackMiddleware: {
+            stats: 'errors-only'
+        },
+        webpack: webpackConfig,
         port: 9876,
-
         colors: true,
-
         autoWatch: true,
-
         browsers: ['Chrome'],
-
-        // Karma plugins loaded
         plugins: [
             'karma-jasmine',
             'karma-coverage',
-            'karma-chrome-launcher'
+            'karma-chrome-launcher',
+            'karma-webpack'
         ],
-
-        // Coverage reporter generates the coverage
         reporters: ['progress', 'dots', 'coverage'],
-
         singleRun: true
     })
 };
