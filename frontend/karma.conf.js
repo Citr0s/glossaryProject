@@ -10,7 +10,7 @@ module.exports = function(config) {
             {
                 pattern: 'src/app/*.spec.ts', 
                 included: false, watched: false
-            },
+            }
         ],
 
         // proxied base paths
