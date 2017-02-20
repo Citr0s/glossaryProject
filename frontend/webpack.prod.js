@@ -1,7 +1,5 @@
 'use strict';
 
-// CURRENTLY NOT WORKING
-
 // Plugin / Base Require
 const webpack                   = require('webpack');
 const path                      = require('path');
@@ -23,15 +21,15 @@ module.exports = {
 
     // START POINT OF BUNDLER
     entry: {
-    polyfills: srcPollyfill,
-    app: srcApp,
-    vendor: srcVendor
+        polyfills: srcPollyfill,
+        app: srcApp,
+        vendor: srcVendor
     },
 
     // OUTPUT OF WEBPACK
     output: {
-    path: distPath,
-    filename: '[name].[hash].bundle.js'
+        path: distPath,
+        filename: '[name].[hash].bundle.js'
     },
 
     // MODULES
@@ -55,26 +53,19 @@ module.exports = {
             {
                 // TS
                 test: /\.ts$/,
+                exclude: /node_modules/,
                 loaders: ['awesome-typescript-loader', 'angular2-template-loader']
             }
-            // {
-                // // JS - Compile TS down to JS
-                // test: /\.js$/,
-                // loader: "babel-loader",
-                // options: {
-                //   presets: ['es2015-native-modules']
-                // }
-            // }
         ]
     },
 
     // RESOLVE
     resolve: {
-    extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js'],
-    modules: [
-        path.resolve(__dirname, 'node_modules'),
-        srcPath
-    ]
+        extensions: ['.js', '.ts', '.css', '.png', 'jpg'],
+        modules: [
+            path.resolve(__dirname, 'node_modules'),
+            srcPath
+        ]
     },
 
     // the environment in which the bundle should run
@@ -82,101 +73,64 @@ module.exports = {
 
     // PLUGINS
     plugins: [
-    // Workaround for angular/angular#11580
-    // New solution is to target is non existing folder
-    new webpack.ContextReplacementPlugin(
-        /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-        path.resolve(__dirname, 'doesnotexist/')
-    ),
+        // Workaround for angular/angular#11580
+        // New solution is to target is non existing folder
+        new webpack.ContextReplacementPlugin(
+            /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+            path.resolve(__dirname, 'doesnotexist/')
+        ),
 
-    // Prefetches files to load in background for SPA - broken :(
-    // new webpack.PrefetchPlugin(),
+        // Prefetches files to load in background for SPA - broken :(
+        new webpack.PrefetchPlugin(srcPath, 'app/app.modules.ts'),
 
-    // Minifes the size of a chunk
-    new webpack.optimize.MinChunkSizePlugin(
-        {
-        minChunkSize: 10000
-        }
-    ),
+        // Minifes files from the loader
+        new webpack.LoaderOptionsPlugin({
+            minimize: true,
+            debug: false
+        }),
 
-    // Limit the about of chunks
-    new webpack.optimize.LimitChunkCountPlugin(
-        {
-        maxChunks: 15
-        }
-    ),
+        // Extracts Styling into its own file
+        new ExtractTextPlugin({
+            filename: '[name].[hash].css',
+            allChunks: true
+        }),
 
-    // Minifes files from the loader
-    new webpack.LoaderOptionsPlugin({
-        minimize: true,
-        debug: false
-    }),
+        // SETS SKELETON HTML PATH. Adds in script tags and other to HTML
+        new HtmlWebpackPlugin({
+            hash: true,
+            filename: 'index.html',
+            template: srcPath + '/index.html',
+            inject: 'body'
+        }),
 
-    // uses the names of module files instead of dynamically generated files during bundling
-    new webpack.NamedModulesPlugin(),
+        // Vary the distribution of the ids to get the smallest id length for often used ids with a simple option
+        new webpack.optimize.OccurrenceOrderPlugin(),
 
-    // Vary the distribution of the ids to get the smallest id length for often used ids with a simple option
-    new webpack.optimize.OccurrenceOrderPlugin(),
+        // Names the output files
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'chunks',
+            minChunks: Infinity,
+            filename: 'chunks.bundle.js'
+        }),
 
-    // Names the output files
-    new webpack.optimize.CommonsChunkPlugin({
-        name: 'chunks',
-        minChunks: Infinity,
-        filename: 'chunks.bundle.js'
-    }),
+        // optimizes files using UgilfyJS
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false,
+                screw_ie8: true,
+                conditionals: true,
+                unused: true,
+                comparisons: true,
+                sequences: true,
+                dead_code: true,
+                evaluate: true,
+                if_return: true,
+                join_vars: true
+            },
+            output: {
+                comments: false
+            }
+        })
 
-    // Extracts Styling into its own file
-    new ExtractTextPlugin({
-        filename: '[name].[hash].css',
-        allChunks: true
-    }),
-
-    // SETS SKELETON HTML PATH. Adds in script tags and other to HTML
-    new HtmlWebpackPlugin({
-        hash: true,
-        filename: 'index.html',
-        template: srcPath + '/index.html',
-        inject: 'body'
-    }),
-
-    // optimizes files using UgilfyJS
-    new webpack.optimize.UglifyJsPlugin({
-        compress: {
-            warnings: false,
-            screw_ie8: true,
-            conditionals: true,
-            unused: true,
-            comparisons: true,
-            sequences: true,
-            dead_code: true,
-            evaluate: true,
-            if_return: true,
-            join_vars: true
-        },
-        output: {
-            comments: false
-        }
-    })
-
-    ],
-
-    // DEV SERVER
-    devServer: {
-        contentBase: srcPath,
-        historyApiFallback: { disableDotRule: true },
-        compress: false,
-        inline: true,
-        hot: true,
-        stats: {
-            assets: true,
-            children: false,
-            chunks: false,
-            hash: false,
-            modules: false,
-            publicPath: false,
-            timings: true,
-            version: false,
-            warnings: true
-        }
-    }
+    ]
 };

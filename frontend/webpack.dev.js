@@ -48,17 +48,19 @@ module.exports = {
             {
                 // CSS
                 test: /\.css$/,
-                exclude: helpers.root('src', 'app'),
+                exclude: [helpers.root('src', 'app'), /node_modules/],
                 use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' })
             },
             {
                 // TS
                 test: /\.(ts)$/,
+                exclude: /node_modules/,
                 loaders: ['awesome-typescript-loader', 'angular2-template-loader']
             },
             {
                 // IMAGES
                 test: /\.(png|jpg)$/,
+                exclude: /node_modules/,
                 use: 'url-loader?limit=100000&name=./imgs/[hash].[ext]'
             }
         ]
@@ -94,6 +96,9 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
         name: ['app', 'vendor', 'polyfills']
     }),
+
+    // uses the names of module files instead of dynamically generated files during bundling
+    new webpack.NamedModulesPlugin(),
 
     new ExtractTextPlugin('[name].css'),
 

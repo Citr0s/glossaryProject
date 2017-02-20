@@ -6,4 +6,5 @@ sudo: required
 notifications:
   email: false
 script:
-  - cd backend; dotnet restore; dotnet build
+  - cd backend && dotnet restore && dotnet build
+  - cd ../frontend && yarn --ignore-engines && yarn fe-build

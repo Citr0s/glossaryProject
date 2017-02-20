@@ -10,8 +10,7 @@
     "fe-prod": "NODE_ENV='prod' webpack-dev-server -p --profile",
     "fe-test": "NODE_ENV='test' karma start karma.conf.js",
     "fe-dev": "NODE_ENV='dev' webpack-dev-server -d --hot --inline --color",
-    "fe-compile": "NODE_ENV='prod' webpack",
-    "fe-compile-serve": "NODE_ENV='prod' webpack webpack-dev-server -p --profile"
+    "fe-build": "NODE_ENV='dev' webpack"
   },
   "dependencies": {
     "@angular/common": "~2.4.7",
@@ -27,6 +26,9 @@
     "zone.js": "^0.7.7"
   },
   "devDependencies": {
+    "babel-core": "^6.2.1",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18",
     "@types/jasmine": "^2.5.43",
     "@types/node": "^7.0.5",
     "angular2-template-loader": "^0.6.2",
@@ -39,7 +41,7 @@
     "karma-chrome-launcher": "2.0.0",
     "karma-coverage": "1.1.1",
     "karma-jasmine": "1.1.0",
-    "karma-webpack": "2.0.2",
+    "karma-webpack": "^2.0.2",
     "postcss-loader": "1.3.0",
     "tslint": "^4.4.2",
     "tslint-config-standard": "^4.0.0",
