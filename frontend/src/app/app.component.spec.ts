@@ -1,24 +1,31 @@
-import {TestBed} from '@angular/core/testing';
+import {TestBed, ComponentFixture} from '@angular/core/testing';
 import {AppComponent} from './app.component';
 
 describe('When opening the application', () => {
+    let fixture: ComponentFixture<AppComponent>;
+
     beforeEach(() => {
-        TestBed.configureTestingModule({ declarations: [AppComponent] });
+        TestBed.configureTestingModule({
+            declarations: [AppComponent]
+        });
+
+        fixture = TestBed.createComponent(AppComponent);
     });
 
     it('It bootstraps the AppComponent', () => {
-        let fixture = TestBed.createComponent(AppComponent);
-        expect(fixture.componentInstance instanceof AppComponent).toBe(true);
+        expect(fixture.componentInstance).toBeDefined();
     });
 
-    it('It displays a title', () => {
-        let fixture = TestBed.createComponent(AppComponent);
+    it('It displays the correct title', () => {
+        let testTitle = 'Test Title';
+        fixture.componentInstance.title = testTitle;
+        fixture.detectChanges();
+
         let element = fixture.nativeElement;
-        expect(element.querySelector('h1').innerHTML).toBe('Hello from Angular App with Webpack');
+        expect(element.querySelector('h1').innerHTML).toBe(testTitle);
     });
 
     it('It displays an image', () => {
-        let fixture = TestBed.createComponent(AppComponent);
         let element = fixture.nativeElement;
         expect(element.querySelector('img')).toBeDefined();
     });
