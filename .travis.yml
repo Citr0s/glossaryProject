@@ -7,4 +7,6 @@ notifications:
   email: false
 script:
   - cd backend && dotnet restore && dotnet build
-  - cd ../frontend && yarn --ignore-engines && yarn fe-build
+  - cd ../frontend && yarn --ignore-engines
+  - yarn fe-build
+  - yarn fe-test
