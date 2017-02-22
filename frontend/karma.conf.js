@@ -5,13 +5,13 @@ module.exports = function (config) {
         basePath: '',
         frameworks: ['jasmine'],
         files: [
-            'src/app/*.spec.ts'
+            'karma.entry.js'
         ],
         proxies: {
             '/src/': 'src/app/'
         },
         preprocessors: {
-            'src/app/*.spec.ts': ['webpack']
+            'karma.entry.js': ['webpack']
         },
         webpack: {
             module: webpackConfig.module,
@@ -21,12 +21,6 @@ module.exports = function (config) {
         colors: true,
         autoWatch: true,
         browsers: ['PhantomJS'],
-        plugins: [
-            'karma-jasmine',
-            'karma-coverage',
-            'karma-phantomjs-launcher',
-            'karma-webpack'
-        ],
         reporters: ['progress', 'dots', 'coverage'],
         singleRun: true
     })
