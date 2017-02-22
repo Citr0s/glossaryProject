@@ -10,7 +10,8 @@
     "fe-prod": "NODE_ENV='prod' webpack-dev-server -p --profile",
     "fe-test": "NODE_ENV='test' karma start karma.conf.js",
     "fe-dev": "NODE_ENV='dev' webpack-dev-server -d --hot --inline --color",
-    "fe-build": "NODE_ENV='dev' webpack"
+    "fe-build": "NODE_ENV='prod' webpack",
+    "postinstall": "node node_modules/phantomjs-prebuilt/install.js"
   },
   "dependencies": {
     "@angular/common": "^2.4.8",

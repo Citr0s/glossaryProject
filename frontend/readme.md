@@ -1,9 +1,14 @@
-** Glossary Project - Frontend **
+# Glossary Project - Frontend
 
-* Using Angular 2 & Webpack 2 with Typescript
+## Using Angular 2 & Webpack 2 with Typescript
 
-* To start use `yarn fe-dev`
+// to install phantomjs-prebuilt so it works: yarn && "postinstall"
 
--- TODO --
+### To start (dev-server) use `yarn fe-dev`
+### To test use `yarn fe-test`
+### To compile into dist folder use `yarn fe-build`
+___
+# TODO:
 
-Test envoiroment
+**Test envoiroment**
+**Production Webpack File**
