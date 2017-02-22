@@ -21,12 +21,6 @@ module.exports = function (config) {
         colors: true,
         autoWatch: true,
         browsers: ['PhantomJS'],
-        plugins: [
-            'karma-jasmine',
-            'karma-coverage',
-            'karma-phantomjs-launcher',
-            'karma-webpack'
-        ],
         reporters: ['progress', 'dots', 'coverage'],
         singleRun: true
     })
