@@ -2,7 +2,7 @@
 
 ## Using Angular 2 & Webpack 2 with Typescript
 
-## Intall all node-mocules using `yarn && postinstall`
+## Intall all node-mocules using `yarn && yarn postinstall`
 
 ### To start (dev-server) use `yarn fe-dev`
 ### To test use `yarn fe-test`
