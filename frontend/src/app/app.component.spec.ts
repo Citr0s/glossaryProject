@@ -16,4 +16,10 @@ describe('When opening the application', () => {
         let element = fixture.nativeElement;
         expect(element.querySelector('h1').innerHTML).toBe('Hello from Angular App with Webpack');
     });
+
+    it('It displays an image', () => {
+        let fixture = TestBed.createComponent(AppComponent);
+        let element = fixture.nativeElement;
+        expect(element.querySelector('img')).toBeDefined();
+    });
 });

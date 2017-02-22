@@ -8,8 +8,8 @@
   "license": "MIT",
   "scripts": {
     "fe-test": "karma start karma.conf.js",
-    "fe-dev": "NODE_ENV=dev webpack-dev-server -d --hot --inline --color ",
-    "fe-build": "NODE_ENV=prod webpack",
+    "fe-dev": "webpack-dev-server -d --hot --inline --color --config webpack.dev.js",
+    "fe-build": "webpack --config webpack.prod.js",
     "postinstall": "node node_modules/phantomjs-prebuilt/install.js"
   },
   "dependencies": {
