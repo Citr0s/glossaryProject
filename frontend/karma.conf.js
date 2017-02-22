@@ -1,35 +1,30 @@
 var webpackConfig = require('./webpack.dev.js');
 
-module.exports = function(config) {
+module.exports = function (config) {
     config.set({
-        basePath: '.',
+        basePath: '',
         frameworks: ['jasmine'],
         files: [
-            {
-                pattern: 'src/app/*.spec.ts', 
-                included: false,
-                watched: false
-            }
+            'src/app/*.spec.ts'
         ],
         proxies: {
-            // required for component assests fetched by Angular's compiler
             '/src/': 'src/app/'
         },
         preprocessors: {
-            '**/*.spec.ts': ['webpack']
+            'src/app/*.spec.ts': ['webpack']
         },
-        webpackMiddleware: {
-            stats: 'errors-only'
+        webpack: {
+            module: webpackConfig.module,
+            resolve: webpackConfig.resolve
         },
-        webpack: webpackConfig,
         port: 9876,
         colors: true,
         autoWatch: true,
-        browsers: ['Chrome'],
+        browsers: ['PhantomJS'],
         plugins: [
             'karma-jasmine',
             'karma-coverage',
-            'karma-chrome-launcher',
+            'karma-phantomjs-launcher',
             'karma-webpack'
         ],
         reporters: ['progress', 'dots', 'coverage'],

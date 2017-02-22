@@ -1,18 +1,18 @@
 'use strict';
 
 // Plugin / Base Require
-const webpack                   = require('webpack');
-const path                      = require('path');
-const helpers                   = require('./config/helpers');
-const HtmlWebpackPlugin         = require('html-webpack-plugin');
-const ExtractTextPlugin         = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
+const path = require('path');
+const helpers = require('./config/helpers');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // Webpack Variables
-const srcPath                   = path.join(__dirname, './src');
-const srcApp                    = path.join(__dirname, './src/main.ts');
-const srcPollyfill              = path.join(__dirname, './src/polyfills.ts');
-const srcVendor                 = path.join(__dirname, './src/vendor.ts');
-const distPath                  = path.join(__dirname, './dist');
+const srcPath = path.join(__dirname, './src');
+const srcApp = path.join(__dirname, './src/main.ts');
+const srcPollyfill = path.join(__dirname, './src/polyfills.ts');
+const srcVendor = path.join(__dirname, './src/vendor.ts');
+const distPath = path.join(__dirname, './dist');
 
 module.exports = {
     context: srcPath,
@@ -22,18 +22,18 @@ module.exports = {
 
     // START POINT OF BUNDLER
     entry: {
-    polyfills: srcPollyfill,
-    app: srcApp,
-    vendor: srcVendor
+        polyfills: srcPollyfill,
+        app: srcApp,
+        vendor: srcVendor
     },
 
     // OUTPUT OF WEBPACK
     output: {
-    path: distPath,
-    filename: '[name].bundle.js',
-    sourceMapFilename: '[name].map',
-    chunkFilename: '[id].chunk.js',
-    publicPath: '/'
+        path: distPath,
+        filename: '[name].bundle.js',
+        sourceMapFilename: '[name].map',
+        chunkFilename: '[id].chunk.js',
+        publicPath: '/'
     },
 
     // MODULES
@@ -68,11 +68,11 @@ module.exports = {
 
     // RESOLVE
     resolve: {
-    extensions: ['.js', '.ts', '.css', '.png', 'jpg'],
-    modules: [
-        path.resolve(__dirname, 'node_modules'),
-        srcPath
-    ]
+        extensions: ['.js', '.ts', '.css', '.png', 'jpg'],
+        modules: [
+            path.resolve(__dirname, 'node_modules'),
+            srcPath
+        ]
     },
 
     // performance
@@ -85,40 +85,40 @@ module.exports = {
 
     // PLUGINS
     plugins: [
-    // Workaround for angular/angular#11580
-    // New solution is to target is non existing folder
-    new webpack.ContextReplacementPlugin(
-        /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-        path.resolve(__dirname, 'doesnotexist/')
-    ),
+        // Workaround for angular/angular#11580
+        // New solution is to target is non existing folder
+        new webpack.ContextReplacementPlugin(
+            /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+            path.resolve(__dirname, 'doesnotexist/')
+        ),
 
-    // Names the output files
-    new webpack.optimize.CommonsChunkPlugin({
-        name: ['app', 'vendor', 'polyfills']
-    }),
+        // Names the output files
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ['app', 'vendor', 'polyfills']
+        }),
 
-    // uses the names of module files instead of dynamically generated files during bundling
-    new webpack.NamedModulesPlugin(),
+        // uses the names of module files instead of dynamically generated files during bundling
+        new webpack.NamedModulesPlugin(),
 
-    new ExtractTextPlugin('[name].css'),
+        new ExtractTextPlugin('[name].css'),
 
-    // SETS SKELETON HTML PATH. Adds in script tags and other to HTML
-    new HtmlWebpackPlugin({
-        hash: true,
-        filename: 'index.html',
-        template: srcPath + '/index.html',
-        inject: 'body'
-    })
+        // SETS SKELETON HTML PATH. Adds in script tags and other to HTML
+        new HtmlWebpackPlugin({
+            hash: true,
+            filename: 'index.html',
+            template: srcPath + '/index.html',
+            inject: 'body'
+        })
 
     ],
 
     // DEV SERVER
     devServer: {
-    contentBase: srcPath,
-    historyApiFallback: { disableDotRule: true },
-    compress: false,
-    inline: true,
-    hot: true,
+        contentBase: srcPath,
+        historyApiFallback: { disableDotRule: true },
+        compress: false,
+        inline: true,
+        hot: true,
         stats: {
             assets: true,
             children: false,
