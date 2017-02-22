@@ -81,7 +81,7 @@ module.exports = {
         ),
 
         // Prefetches files to load in background for SPA - broken :(
-        new webpack.PrefetchPlugin(srcPath, 'app/app.modules.ts'),
+        //new webpack.PrefetchPlugin(srcPath, 'app/app.modules.ts'),
 
         // Minifes files from the loader
         new webpack.LoaderOptionsPlugin({

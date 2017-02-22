@@ -1,0 +1,6 @@
+{
+  "name": "vendor",
+  "content": {
+    "./node_modules/angular/index.js": 1
+  }
+}
