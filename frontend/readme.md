@@ -2,7 +2,7 @@
 
 ## Using Angular 2 & Webpack 2 with Typescript
 
-// to install phantomjs-prebuilt so it works: yarn && "postinstall"
+## Intall all node-mocules using `yarn && postinstall`
 
 ### To start (dev-server) use `yarn fe-dev`
 ### To test use `yarn fe-test`
